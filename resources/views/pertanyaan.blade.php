@@ -13,9 +13,8 @@ Buat Pertanyaan Baru
                       <th>No.</th>
                       <th>Judul</th>
                       <th>Pertanyaan</th>
-                      <th>Tanggal Dibuat</th>
-                      <th>Tanggal Diperbaharui</th>
                       <th>Jawaban</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -25,8 +24,6 @@ Buat Pertanyaan Baru
                     <td>{{$loop->iteration}}</td>
                     <td>{{$tanya->judul}}</td>
                     <td>{{$tanya->isi}}</td>
-                    <td>{{$tanya->tanggal_dibuat}}</td>
-                    <td>{{$tanya->tanggal_diperbaharui}}</td>
                     <td>
                     <form action="{{ url('/jawaban/'.$tanya->id) }}" method="post">
                     @csrf
@@ -39,6 +36,19 @@ Buat Pertanyaan Baru
                     <a href="{{url('/jawaban/'.$tanya->id)}}">
                     <button class="btn btn-warning"> Lihat Jawaban</button>
                     </a>
+                    </td>
+                    <td>
+                    <a href="{{url('/pertanyaan/'.$tanya->id)}}">
+                    <button title="Lihat Q&A" class="btn btn-primary"><i class="fas fa-eye"></i></button>
+                    </a>
+                    <a href="{{url('/pertanyaan/'.$tanya->id.'/edit')}}">
+                    <button title="Edit Pertanyaan" class="btn btn-info"><i class="fas fa-edit"></i></button>
+                    </a>
+                    <form method="POST" action="{{url('/pertanyaan/'.$tanya->id)}}">
+                    @csrf
+                    {{method_field('delete')}}
+                    <button title="Detele" type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    </form>
                     </td>
                     </tr>
                   @endforeach
