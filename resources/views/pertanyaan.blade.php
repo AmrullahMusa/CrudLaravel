@@ -10,22 +10,36 @@ Buat Pertanyaan Baru
 <table class="table table-bordered">
                   <thead>                  
                     <tr>
-                      <th style="width: 10px">No.</th>
-                      <th>Nama</th>
+                      <th>No.</th>
                       <th>Judul</th>
                       <th>Pertanyaan</th>
-                      <th>Actions</th>
+                      <th>Tanggal Dibuat</th>
+                      <th>Tanggal Diperbaharui</th>
+                      <th>Jawaban</th>
                     </tr>
                   </thead>
                   <tbody>
 
-                  @foreach($pertanyaan as $key => $tanya)
+                  @foreach($pertanyaans as $tanya)
                     <tr>
-                    <td>{{$key+1}}</td>
-                    <td>{{$tanya->nama}}</td>
+                    <td>{{$loop->iteration}}</td>
                     <td>{{$tanya->judul}}</td>
-                    <td>{{$tanya->pertanyaan}}</td>
-                    <td><a href="/jawaban/{{$tanya->id}}" class="btn btn-sm btn-info"><i class="far fa-comments"></i></a></td>
+                    <td>{{$tanya->isi}}</td>
+                    <td>{{$tanya->tanggal_dibuat}}</td>
+                    <td>{{$tanya->tanggal_diperbaharui}}</td>
+                    <td>
+                    <form action="{{ url('/jawaban/'.$tanya->id) }}" method="post">
+                    @csrf
+                    <input type="text" name="isi">
+                    <input hidden name="pertanyaan_id" value="{{$tanya->id}}">
+                    <input hidden name="tanggal_dibuat" value="{{\Carbon\Carbon::now()}}">
+                    <input hidden name="tanggal_diperbaharui" value="{{\Carbon\Carbon::now()}}">
+                    <button type="submit" class="btn btn-success">Masukkan Jawaban</button>
+                    </form>
+                    <a href="{{url('/jawaban/'.$tanya->id)}}">
+                    <button class="btn btn-warning"> Lihat Jawaban</button>
+                    </a>
+                    </td>
                     </tr>
                   @endforeach
                   </tbody>

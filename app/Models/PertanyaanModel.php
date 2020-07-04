@@ -5,18 +5,13 @@ use Illuminate\Support\Facades\DB;
 
 class PertanyaanModel {
 public static function get_all(){
-    $tanya = DB::table('pertanyaan')->get();
+    $tanya = DB::table('pertanyaans')->get(); //get = untuk memanggil semua variable
     return $tanya;
 }
 
 public static function save($data){
     unset($data["_token"]);
-    $new_tanya = DB::table('pertanyaan')->insert($data); 
+    $new_tanya = DB::table('pertanyaans')->insert($data); 
     return $new_tanya;
-}
-
-public static function find_by_id($id){
-$tanya = DB::table('pertanyaan')->where('id',$id)->first();
-return $tanya;
 }
 }

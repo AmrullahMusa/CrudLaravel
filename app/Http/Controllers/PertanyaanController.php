@@ -13,14 +13,14 @@ class PertanyaanController extends Controller
    }
 
    public function store(Request $request){
-        $new_tanya = PertanyaanModel::save($request->all());
+        $data = $request->all();
+        PertanyaanModel::save($data);
         return redirect('/pertanyaan');
    }
 
    public function index(){
-       $pertanyaan = PertanyaanModel::get_all();
-
-       return view('pertanyaan', compact ('pertanyaan'));
+       $pertanyaans = PertanyaanModel::get_all();
+       return view('pertanyaan', compact ('pertanyaans'));
    }
 
    
